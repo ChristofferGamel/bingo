@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bingo</title>
+    <style>
+        :root {
+        --pink: #fce9ee;
+        --title-color: #fc3f65;
+        --field-color: #f8f8f8;
+        }
+        .field {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            border: 1px solid rgb(255, 133, 133);
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .field.clicked {
+            background-color: grey;
+        }
+        .title {
+            text-align: center;
+            color: var(--title-color);
+        }
+        .board {
+            text-align: center;
+        }
+        .triangle-topleft {
+            width: 0;
+            height: 0;
+            border-top: 100px solid red;
+            border-right: 100px solid transparent;
+        }   
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>Den her fucking gruppe.</h1>    
+    </div>
+    
+    
+    
+    <div class="board" onload="renderBingoBoard()">
+        <body onload="renderBingoBoard()">
+        </body>
+    </div>
+
+    <script>
+        var bingoEntries = [
+            "Snus",
+            "Noget Racistisk (Så er det i fængsel med dig)",
+            "Monster indtages",
+            "Viktors depression",
+            "Hva? / huh?",
+            "Linux problemer",
+            "Det kommer til eksamenen",
+            "Martin siger noget dumt",
+            "Hvis jeg var i et rum med Alan Turing og ...",
+            "Tetris",
+            "Dødstrusler fra Thomas",
+            "Er der strøm her?",
+            "Linucare mobbes",
+            "Øjenkontakt med Hans Hüttel",
+            "Nippelpiercinger",
+            "VDJ's sexliv",
+            "bruh",
+            "en øl åbnes",
+            "Viktor er akavet",
+        ]
+
+        const currentDay = new Date();
+
+        if (currentDay.getDay() === 5) {
+            bingoEntries.push("Getting spitroasted by Sean");
+        }
+
+        function renderBingoBoard() {
+            bingoEntries.sort(() => Math.random() - 0.5);
+
+            const selectedEntries = bingoEntries.slice(0, 14);
+
+            const board = [];
+            for (let y = 0; y < 3; y++) {
+                const row = [];
+                for (let x = 0; x < 9; x++) {
+                const field = document.createElement("div");
+                field.classList.add("field");
+                field.onclick = () => toggleField(field);
+
+                if (Math.random() < 0.5 && selectedEntries.length > 0) {
+                    const entry = selectedEntries.pop();
+                    field.innerHTML = entry;
+                } else {
+                    field.innerHTML = "";
+                }
+
+                row.push(field);
+                document.querySelector(".board").appendChild(field);
+                }
+                document.querySelector(".board").appendChild(document.createElement("br"));
+                board.push(row);
+            }
+
+            return board;
+        }
+
+        function toggleField(field) {
+            if(field.innerHTML !== ""){
+                field.classList.toggle("clicked");
+            }
+            
+        }
+    </script>
+</body>
+
+</html>
